@@ -1,0 +1,103 @@
+
+
+py manage.py startapp api
+
+1) urls.py/project:
+ 
+path('api/', include('api.urls')), 
+
+2) settings/project:
+
+'api.apps.ApiConfig',
+
+3) api/serializers.py:
+
+
+from rest_framework import serializers
+from mahsulot.models import Mahsulot, Menyu
+
+class MahsulotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Mahsulot
+        fields = ('nomi', 'turi', 'mahsulot_haqida', 'rasm', 'narx')
+        
+class MenyuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Menyu
+        fields = ('nomi',)
+
+
+
+4) api/views.py:
+
+
+from mahsulot.models import Mahsulot, Menyu
+
+from .serializers import MahsulotSerializer, MenyuSerializer
+
+from rest_framework.viewsets import ModelViewSet
+
+
+
+class MahsulotViewSet(ModelViewSet):
+    queryset = Mahsulot.objects.all()
+    serializer_class=MahsulotSerializer
+    http_method_names = ['get','head']
+    
+    
+class MenyuViewSet(ModelViewSet):
+    queryset=Menyu.objects.all()
+    serializer_class=MenyuSerializer
+    http_method_names=['get','head']
+
+
+6) api/urls.py:
+
+
+from django.urls import path, include
+from .views import  MahsulotViewSet, MenyuViewSet
+
+
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('Menyu', MenyuViewSet)
+router.register('Mahsulot',MahsulotViewSet)
+
+urlpatterns = [
+    path("", include(router.urls))
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+<h1 style="text-align: center;"> 
+    Barcha Mahsulotlar ro'yxati
+</h1>
+
+{% for mahs in mahsulot_list %}
+  <ul>
+    <li>Mahsulot turi : {{mahs.turi}}</li>
+    <li>Mahsulot nomi : {{mahs.nomi}}</li>
+    <li>Mahsulot haqida : {{mahs.mahsulot_haqida}}</li>
+    <li>Mahsulot rasmi : {{mahs.rasm}}</li>
+    <li>Mahsulot narxi : {{mahs.narx}} so'm</li>
+  </ul>
+{% endfor %}
